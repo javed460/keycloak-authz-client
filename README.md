@@ -17,8 +17,9 @@ Spring Boot application demonstrating Keycloak Authorization Client integration.
 
 2. **Configure Keycloak**
    - Create realm: `my-app-realm`
-   - Create client: `spring-boot-app`
+   - Create client: `product-service`
    - Set client secret
+   - Details keycloak setup steps are in real-config.json under resources
 
 3. **Update Application**
    ```yaml
