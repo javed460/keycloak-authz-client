@@ -1,0 +1,110 @@
+{
+  "id": "my-app-realm",
+  "realm": "my-app-realm",
+  "enabled": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "admin",
+        "composite": false
+      },
+      {
+        "name": "user",
+        "composite": false
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "product-service",
+      "name": "Product Service API",
+      "enabled": true,
+      "publicClient": false,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "GENERATE_ME_ON_IMPORT",
+      "defaultClientScopes": [
+        "product-service-uma-protection"
+      ],
+      "scopeMappings": [
+        {
+          "clientScope": "uma_authorization"
+        }
+      ],
+      "authorizationSettings": {
+        "policyEnforcementMode": "ENFORCING",
+        "decisionStrategy": "AFFIRMATIVE",
+        "resources": [
+          {
+            "name": "Product Resource",
+            "displayName": "Product Resource",
+            "uris": [
+              "/products/*"
+            ],
+            "scopes": [
+              "product:view",
+              "product:create",
+              "product:delete"
+            ]
+          }
+        ],
+        "policies": [
+          {
+            "name": "Admin Role Policy",
+            "type": "role",
+            "description": "Requires the realm 'admin' role.",
+            "config": {
+              "roles": "[{\"id\":\"${realm_roles.admin}\",\"required\":true}]"
+            }
+          },
+          {
+            "name": "Regular User Role Policy",
+            "type": "role",
+            "description": "Requires the realm 'user' role.",
+            "config": {
+              "roles": "[{\"id\":\"${realm_roles.user}\",\"required\":true}]"
+            }
+          }
+        ],
+        "permissions": [
+          {
+            "name": "Product View Permission",
+            "description": "Allows admin or user to view products.",
+            "resource": "Product Resource",
+            "scopes": [
+              "product:view"
+            ],
+            "decisionStrategy": "AFFIRMATIVE",
+            "policies": [
+              "Admin Role Policy",
+              "Regular User Role Policy"
+            ]
+          },
+          {
+            "name": "Product Create Permission",
+            "description": "Allows admin to create products.",
+            "resource": "Product Resource",
+            "scopes": [
+              "product:create"
+            ],
+            "policies": [
+              "Admin Role Policy"
+            ]
+          },
+          {
+            "name": "Product Delete Permission",
+            "description": "Allows admin to delete products.",
+            "resource": "Product Resource",
+            "scopes": [
+              "product:delete"
+            ],
+            "policies": [
+              "Admin Role Policy"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
