@@ -21,23 +21,13 @@ Spring Boot application demonstrating Keycloak Authorization Client integration.
    - Set client secret
    - Details keycloak setup steps are in real-config.json under resources
 
-3. **Update Application**
-   ```yaml
-   # application.yml
-   keycloak:
-     auth-server-url: http://localhost:8080
-     realm: spring-authz-demo
-     client-id: spring-boot-app
-     credentials:
-       secret: your-client-secret-here
-
 3. **Testing**
    - Get the keycloak token using
    
-     curl -X POST http://localhost:8080/realms/spring-authz-demo/protocol/openid-connect/token \
+     curl -X POST http://localhost:8080/realms/my-app-realm/protocol/openid-connect/token \
      -H "Content-Type: application/x-www-form-urlencoded" \
      -d "grant_type=password" \
-     -d "client_id=spring-boot-app" \
+     -d "client_id=product-service" \
      -d "client_secret=YOUR_CLIENT_SECRET_HERE" \
-     -d "username=testuser" \
+     -d "username=adminuser" \
      -d "password=test123"
