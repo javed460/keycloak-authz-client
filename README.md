@@ -31,3 +31,6 @@ Spring Boot application demonstrating Keycloak Authorization Client integration.
      -d "client_secret=YOUR_CLIENT_SECRET_HERE" \
      -d "username=adminuser" \
      -d "password=test123"
+   
+   - Access get product url, pass bearer token   
+    http://localhost:8081/products
